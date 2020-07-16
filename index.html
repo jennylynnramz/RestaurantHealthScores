@@ -4,27 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+   
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!--  -->
+    <!-- plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+
 
 </head>
 <body>
-    <div class="container">
+
+    <!-- <div class="container">
         <div id="restuarant-risk">
             <h3>Risky Restaurants</h3>
-            <select id="risk-select" onchange="optionChanged(this.value)"></select>
-            <div id="risk-table">
+        </div>
+    </div> -->    <!-- close container -->
 
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Risky Restaurants</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <select id="risk-select" onchange="createTable(this.value)"></select>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr><th>Name</th><th>Risk Level</th><th>Address</th>
+                        <th>Inspection Date</th><th>Inspection Type</th><th>Violation Type</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
+        </div>
+    </div>
 
-        </div> <!-- restaurant-risk-->
-    </div> <!-- close container-->
 
 
     
+
+
+    
+
 
 
     <!-- scripts -->
@@ -32,5 +57,6 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- js -->
     <script type="text/javascript" src="scores.js"></script>
-</body>
+     
+    </body>
 </html>
