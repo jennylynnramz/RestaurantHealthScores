@@ -32,6 +32,9 @@ d3.json(healthScoresUrl).then(function(healthData) {
             return `<td>${d.business_name}</td><td>${d.risk_level}</td><td>${d.address}</td><td>${d.inspection_date}</td><td>${d.inspection_type}</td><td>${d.violation_description}</td>`;
         });
 
+        console.log("moo")
+        console.log(searchNameAll)
+
 }); //end d3
 
 function nameSearchRun() {
@@ -44,8 +47,9 @@ function nameSearchRun() {
         var searchInput = []
         for (i=0; i < searchData.length; i++) {
             if (searchData[i].business_name.toLowerCase() === inputValue) {
-                searchInput = {"business_name": searchData[i].business_name.toLowerCase(), "risk_level": searchData[i].risk_category, "address": searchData[i].business_address.toLowerCase() + ", " + searchData[i].business_city + ", " + searchData[i].business_state + ", " + searchData[i].business_postal_code, "inspection_date": new Date(searchData[i].inspection_date).toDateString(), "inspection_type": searchData[i].inspection_type, "violation_description": searchData[i].violation_description}      
-            }   
+                searchInput.push({"business_name": searchData[i].business_name.toLowerCase(), "risk_level": searchData[i].risk_category, "address": searchData[i].business_address.toLowerCase() + ", " + searchData[i].business_city + ", " + searchData[i].business_state + ", " + searchData[i].business_postal_code, "inspection_date": new Date(searchData[i].inspection_date).toDateString(), "inspection_type": searchData[i].inspection_type, "violation_description": searchData[i].violation_description})      
+            }  
+
         }
         d3.select("tbody")
         .selectAll("tr").remove();
@@ -56,21 +60,21 @@ function nameSearchRun() {
 }; //end function nameSearch
 
 function createSearchMoo (searchInput) {
-    console.log("searchInput")
+    // console.log("searchInput")
     console.log(searchInput)
+    // console.log("end searchInput")
+    // console.log("Moo: " + searchInput.business_name)
 
-   
-
-    console.log("after remove");
 
     d3.select("tbody")
     .selectAll("tr")
     .data(searchInput)
     .enter()
     .append("tr")
-    .html(function(e)
-        {`<td>${e.business_name}</td><td>${e.risk_level}</td><td>${e.address}</td><td>${e.inspection_date}</td><td>${e.inspection_type}</td><td>${e.violation_description}</td>`});
-    console.log("after adding html");
+    .html(function(e) {
+        return `<td>${e.business_name}</td><td>${e.risk_level}</td><td>${e.address}</td><td>${e.inspection_date}</td><td>${e.inspection_type}</td><td>${e.violation_description}</td>`});
+    
+console.log("after adding html");
 
 };
 
