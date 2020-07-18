@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risk</title>
+    <title>Map</title>
 
-   
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- plotly -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
 </head>
-
 <body>
     <!-- begin navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -40,16 +45,21 @@
       </nav>
       <!-- end navbar -->
 
+    <!-- begin searchbar -->
 
     <div class="container restaurant-title">
         <div class="row">
             <div class="col-12">
                 <h3>Risky Restaurants</h3>
+                <h4></h4>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <select id="risk-select" onchange="createTable(this.value)"></select>
+                <input type='text' id='restaurant-name' /> 
+                <button onclick="nameSearchRun(this.value)"> 
+                    search 
+                </button>             
             </div>
         </div>
         <table class="table table-striped">
@@ -63,12 +73,9 @@
         </table>
     </div>
 
+    <!-- end searchbar -->
 
 
-    
-
-
-    
 
 
 
@@ -76,11 +83,10 @@
     <!-- d3 -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- js -->
+    <!-- <script type="text/javascript" src="scores.js"></script> -->
     <script type="text/javascript" src="config.js"></script>
-    <script type="text/javascript" src="scores.js"></script>
-    <script type="text/javascript" src="map.js"></script>
     <script type="text/javascript" src="search.js"></script>
 
-     
-    </body>
+    
+</body>
 </html>
