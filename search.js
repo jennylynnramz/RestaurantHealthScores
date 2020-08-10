@@ -43,12 +43,13 @@ function nameSearchRun() {
 
     d3.json(healthScoresUrl).then(function(searchData) {
         // console.log(searchData)
-        
+
         var searchInput = []
         for (i=0; i < searchData.length; i++) {
-            if (searchData[i].business_name.toLowerCase() === inputValue) {
-                searchInput.push({"business_name": searchData[i].business_name.toLowerCase(), "risk_level": searchData[i].risk_category, "address": searchData[i].business_address.toLowerCase() + ", " + searchData[i].business_city + ", " + searchData[i].business_state + ", " + searchData[i].business_postal_code, "inspection_date": new Date(searchData[i].inspection_date).toDateString(), "inspection_type": searchData[i].inspection_type, "violation_description": searchData[i].violation_description})      
-            }  
+          // searchData[i].business_name.toLowerCase().indexOf(inputValue.toLowerCase()) != -1
+            if (searchData[i].business_name.toLowerCase().indexOf(inputValue.toLowerCase()) != -1) {
+                searchInput.push({"business_name": searchData[i].business_name.toLowerCase(), "risk_level": searchData[i].risk_category, "address": searchData[i].business_address.toLowerCase() + ", " + searchData[i].business_city + ", " + searchData[i].business_state + ", " + searchData[i].business_postal_code, "inspection_date": new Date(searchData[i].inspection_date).toDateString(), "inspection_type": searchData[i].inspection_type, "violation_description": searchData[i].violation_description})
+            }
 
         }
         d3.select("tbody")
@@ -56,7 +57,7 @@ function nameSearchRun() {
 
         createSearchMoo(searchInput)
 
-    });//end d3 for nameSearch 
+    });//end d3 for nameSearch
 }; //end function nameSearch
 
 function createSearchMoo (searchInput) {
@@ -73,10 +74,9 @@ function createSearchMoo (searchInput) {
     .append("tr")
     .html(function(e) {
         return `<td>${e.business_name}</td><td>${e.risk_level}</td><td>${e.address}</td><td>${e.inspection_date}</td><td>${e.inspection_type}</td><td>${e.violation_description}</td>`});
-    
+
 console.log("after adding html");
 
 };
 
 // .html(`<td>${searchInput.business_name}</td><td>${searchInput.risk_level}</td><td>${searchInput.address}</td><td>${searchInput.inspection_date}</td><td>${searchInput.inspection_type}</td><td>${searchInput.violation_description}</td>`);
-
