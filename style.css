@@ -8,3 +8,16 @@
     width: 600px;
 }
 
+#SF-title{
+    color: orange;
+    font-family: initial ;
+    text-align: center;
+}
+
+nav {
+    padding-bottom: 32pt;
+}
+
+.navbar-brand {
+    font-family: cursive;
+}
