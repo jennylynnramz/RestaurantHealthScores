@@ -21,3 +21,8 @@ nav {
 .navbar-brand {
     font-family: cursive;
 }
+
+#landing-title {
+    color: gold;
+    text-align: center;
+}
