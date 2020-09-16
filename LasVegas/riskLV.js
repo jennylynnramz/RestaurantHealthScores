@@ -1,67 +1,103 @@
 console.log("Risk in Las Vegas has loaded!");
 
-var violationCodesURL = "https://opendata.arcgis.com/datasets/9abf2b74783e49f4949afc06839860a7_0.geojson";
+// var violationCodesURL = "https://opendata.arcgis.com/datasets/9abf2b74783e49f4949afc06839860a7_0.geojson";
 var restaurantInspectionsURL = "https://opendata.arcgis.com/datasets/94fe16f2a6a241f6841e1ed5c2f1f519_0.geojson";
 
 
+///data call to populate dropdown list
 d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
     var LVRestaurants = restaurantInspectionsData.features
-    console.log("Restaurant Data")
-    // console.log(LVRestaurants)
-
-        LVRestaurantMinData = {}
-        for (i=0; i < LVRestaurants.length; i++){
-            // console.log(LVRestaurants[i])
-            LVRestaurantName = LVRestaurants[i].properties.Restaurant_Name
-            LVRestaurantAddress = LVRestaurants[i].properties.Address + ", " + LVRestaurants[i].properties.City + ", " + LVRestaurants[i].properties.State + ", " + LVRestaurants[i].properties.Zip
-
-            // console.log(LVRestaurants[i].properties.Inspection_Result)
-            console.log(LVRestaurants[i].properties.Inspection_Grade)
-
-
-
-
-            // console.log(LVRestaurantName)
-            // console.log(LVRestaurantAddress)
-
-
-
-            LVRestaurantMinData[LVRestaurantName] = {"Name": LVRestaurantName, 
-                                                    "Address" : LVRestaurantAddress,
-                                                    "Category" : LVRestaurants[i].properties.Category_Name, 
-                                                }
-
-        }
-
-        console.log(LVRestaurantMinData)
-
-
-
-
-
-
-
-
-
     
-}); //d3.json(restaurantInspectionsURL)
+    var scoreAll = []
+    var restaurantCategoryAll = []
+
+        ///for loop to get risk categories
+        for (i = 0; i < LVRestaurants.length; i++) { //for 1
+            if (LVRestaurants[i].properties.Inspection_Result != undefined) { //if 1
+                scoreAll.push(LVRestaurants[i].properties.Inspection_Result); 
+            } //end if 1
+            if (LVRestaurants[i].properties.Category_Name != undefined) { //if 2
+                restaurantCategoryAll.push(LVRestaurants[i].properties.Category_Name);
+            } //end if 2
+
+        }; //end for 1
+
+        //consolidate to only unique values
+        var riskCategoryUnique =  [...new Set(scoreAll)]
+        console.log(riskCategoryUnique)
+
+        var restaurantCategoryUnique = [...new Set(restaurantCategoryAll)]
+        console.log(restaurantCategoryUnique)
+
+        //populate restaurant-risk dropdown with values
+        var select = document.getElementById("inspection-result-select");
+        for(i=0; i < riskCategoryUnique.length; i++) {
+            select.options[select.options.length] = new Option(riskCategoryUnique[i]);
+        }  
+        
+        var select = document.getElementById("category-select");
+        for(i=0; i < restaurantCategoryUnique.length; i++) {
+            select.options[select.options.length] = new Option(restaurantCategoryUnique[i]);
+        }  
 
 
 
-// Current_Demerits: 0
-// Current_Grade: "A"
-// Date_Current: "2020/03/23 00:00:00"
-// Employee_ID: "EE7000804"
-// Inspection_Date: "2020/03/23 00:00:00"
-// Inspection_Demerits: 0
-// Inspection_Grade: "A"
-// Inspection_Result: "'A' Grade"
-// Inspection_Time: "2020/03/23 15:20:00"
-// Inspection_Type: "Routine Inspection"
-// Location_1: "(36.1588472,115.2075095)"
-// ObjectId: 1295877
-// Permit_Number: "PR0098643"
-// Permit_Status: ""
-// Record_Updated: "2020/03/23 16:00:02"
-// Serial_Number: "DAIHHHL40"
-// Violations: 2928
+        
+});////end populate dropdown
+
+/////////////////////////////////////////////////////////////////
+
+//function to create table
+
+function createTable(value) {
+
+    d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
+        var LVRestaurants = restaurantInspectionsData.features
+        console.log("Restaurant Data")
+        // console.log(LVRestaurants)
+
+            LVRestaurantMinData = {}
+            for (i=0; i < LVRestaurants.length; i++){
+                // console.log(LVRestaurants[i])
+                var LVRestaurantName = LVRestaurants[i].properties.Restaurant_Name
+                var LVRestaurantAddress = LVRestaurants[i].properties.Address + ", " + LVRestaurants[i].properties.City + ", " + LVRestaurants[i].properties.State + ", " + LVRestaurants[i].properties.Zip
+
+                LVRestaurantMinData[LVRestaurantName] = {"Name": LVRestaurantName, "Address" : LVRestaurantAddress, "Category" : LVRestaurants[i].properties.Category_Name, "Date of Inspection": LVRestaurants[i].properties.Inspection_Date, "Inspection Result": LVRestaurants[i].properties.Inspection_Result, "Current Grade": LVRestaurants[i].properties.Current_Grade, "Inpection Type": LVRestaurants[i].properties.Inspection_Type}
+            } //for loop to create new list
+
+            // console.log(LVRestaurantMinData)
+
+            console.log(riskCategoryUnique)
+
+            var scoreCategoryAll = []
+
+            ///for loop to get risk categories
+            for (i = 0; i < LVRestaurants.length; i++) {
+                if (LVRestaurants[i].properties.Inspection_Result != undefined) {
+                    scoreCategoryAll.push(LVRestaurants[i].properties.Inspection_Result);            
+                } //end if
+            }; //end for
+
+            //consolidate to only unique values
+            var riskCategoryUnique =  [...new Set(scoreCategoryAll)]
+            console.log(riskCategoryUnique)
+
+            //populate restaurant-risk dropdown with values
+            var select = document.getElementById("risk-select");
+            for(i=0; i < riskCategoryUnique.length; i++) {
+                select.options[select.options.length] = new Option(riskCategoryUnique[i]);
+            } 
+
+            for (j=0; j < riskCategoryUnique.length; j++) {
+                console.log(riskCategoryUnique[j])
+
+                
+            }
+
+
+        
+    }); //d3.json(restaurantInspectionsURL)
+
+} //end of createTable function
+
+

@@ -46,10 +46,42 @@
   <br><br>
   <div class="row">
     <div class="col-12">
-      <center><h1>Oh no.. there's nothing here yet...</h1></center>
-      <a href="../index.html">Take me back :(</a>
+      <center><h1>Oh no.. there's nothing useful here yet...</h1>
+      <a href="../index.html">Take me back :(</a></center>
     </div>
   </div>
+</div>
+<br><br>
+<div class="container restaurant-title">
+  <div class="row">
+      <div class="col-12">
+          <center><h3>Restaurant Health Inspections in Las Vegas</h3></center>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-6">
+        <select id="category-select" onchange="createTable(this.value)"></select>
+      </div>
+      
+      <div class="col-6">
+        <select id="inspection-result-select" onchange="createTable(this.value)"></select>
+    </div>
+  </div>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Category</th>
+            <th>Date of Inspection</th>
+            <th>Inspection Result</th>
+            <th>Inspection Type</th>
+            <th>Current Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+  </table>
 </div>
 
 
