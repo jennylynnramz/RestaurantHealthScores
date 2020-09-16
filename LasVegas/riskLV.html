@@ -59,9 +59,13 @@
       </div>
   </div>
   <div class="row">
-      <div class="col-12">
-          <select id="risk-select" onchange="createTable(this.value)"></select>
+      <div class="col-6">
+        <select id="category-select" onchange="createTable(this.value)"></select>
       </div>
+      
+      <div class="col-6">
+        <select id="inspection-result-select" onchange="createTable(this.value)"></select>
+    </div>
   </div>
   <table class="table table-striped">
       <thead>
