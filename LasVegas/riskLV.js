@@ -24,10 +24,10 @@ d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
 
         //consolidate to only unique values
         var riskCategoryUnique =  [...new Set(scoreAll)]
-        console.log(riskCategoryUnique)
+        // console.log(riskCategoryUnique)
 
         var restaurantCategoryUnique = [...new Set(restaurantCategoryAll)]
-        console.log(restaurantCategoryUnique)
+        // console.log(restaurantCategoryUnique)
 
         //populate restaurant-risk dropdown with values
         var select = document.getElementById("inspection-result-select");
@@ -41,6 +41,46 @@ d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
         }  
 
 
+        LVRestaurantMinData = []
+        for (i=0; i < LVRestaurants.length; i++){
+            // console.log(LVRestaurants[i])
+            var LVRestaurantName = LVRestaurants[i].properties.Restaurant_Name
+            var LVRestaurantAddress = LVRestaurants[i].properties.Address + ", " + LVRestaurants[i].properties.City + ", " + LVRestaurants[i].properties.State + ", " + LVRestaurants[i].properties.Zip
+
+            LVRestaurantMinData[LVRestaurantName] = {"Name": LVRestaurantName, "Address" : LVRestaurantAddress, "Category" : LVRestaurants[i].properties.Category_Name, "Date_of_Inspection": new Date (LVRestaurants[i].properties.Inspection_Date).toDateString(), "Inspection_Result": LVRestaurants[i].properties.Inspection_Result, "Current_Grade": LVRestaurants[i].properties.Current_Grade, "Inpection_Type": LVRestaurants[i].properties.Inspection_Type}
+        } //for loop to create new list
+
+        var AllLVRestaurant = []
+
+        for (const property in LVRestaurantMinData) {
+            AllLVRestaurant.push(LVRestaurantMinData[property])
+
+        }
+
+        // console.log(LVRestaurantMinData)
+
+        // for (const property in LVRestaurantMinData) {
+        //     console.log(LVRestaurantMinData[property].Name)
+        // }
+
+        d3.select("tbody")
+        .selectAll("tr").remove()
+
+        console.log("did the remove thing")
+
+        d3.select("tbody")
+        .selectAll("tr")
+        .data(AllLVRestaurant)
+        .enter()
+        .append("tr")
+        .html(function(d) {
+            return `<td>${d.Name}</td><td>${d.Address}</td><td>${d.Category}</td><td>${d.Date_of_Inspection}</td><td>${d.Inspection_Result}</td><td>${d.Current_Grade}</td><td>${d.Inpection_Type}</td>`;
+
+        })
+
+        console.log("did the add thing")
+
+
 
         
 });////end populate dropdown
@@ -49,55 +89,55 @@ d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
 
 //function to create table
 
-function createTable(value) {
+// function categoryeTable(value) {
 
-    d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
-        var LVRestaurants = restaurantInspectionsData.features
-        console.log("Restaurant Data")
-        // console.log(LVRestaurants)
+//     d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
+//         var LVRestaurants = restaurantInspectionsData.features
+//         console.log("Restaurant Data")
+//         // console.log(LVRestaurants)
 
-            LVRestaurantMinData = {}
-            for (i=0; i < LVRestaurants.length; i++){
-                // console.log(LVRestaurants[i])
-                var LVRestaurantName = LVRestaurants[i].properties.Restaurant_Name
-                var LVRestaurantAddress = LVRestaurants[i].properties.Address + ", " + LVRestaurants[i].properties.City + ", " + LVRestaurants[i].properties.State + ", " + LVRestaurants[i].properties.Zip
+//             LVRestaurantMinData = {}
+//             for (i=0; i < LVRestaurants.length; i++){
+//                 // console.log(LVRestaurants[i])
+//                 var LVRestaurantName = LVRestaurants[i].properties.Restaurant_Name
+//                 var LVRestaurantAddress = LVRestaurants[i].properties.Address + ", " + LVRestaurants[i].properties.City + ", " + LVRestaurants[i].properties.State + ", " + LVRestaurants[i].properties.Zip
 
-                LVRestaurantMinData[LVRestaurantName] = {"Name": LVRestaurantName, "Address" : LVRestaurantAddress, "Category" : LVRestaurants[i].properties.Category_Name, "Date of Inspection": LVRestaurants[i].properties.Inspection_Date, "Inspection Result": LVRestaurants[i].properties.Inspection_Result, "Current Grade": LVRestaurants[i].properties.Current_Grade, "Inpection Type": LVRestaurants[i].properties.Inspection_Type}
-            } //for loop to create new list
+//                 LVRestaurantMinData[LVRestaurantName] = {"Name": LVRestaurantName, "Address" : LVRestaurantAddress, "Category" : LVRestaurants[i].properties.Category_Name, "Date_of_Inspection": LVRestaurants[i].properties.Inspection_Date, "Inspection_Result": LVRestaurants[i].properties.Inspection_Result, "Current_Grade": LVRestaurants[i].properties.Current_Grade, "Inpection_Type": LVRestaurants[i].properties.Inspection_Type}
+//             } //for loop to create new list
 
-            // console.log(LVRestaurantMinData)
+//             // console.log(LVRestaurantMinData)
 
-            console.log(riskCategoryUnique)
+//             console.log(riskCategoryUnique)
 
-            var scoreCategoryAll = []
+//             var scoreCategoryAll = []
 
-            ///for loop to get risk categories
-            for (i = 0; i < LVRestaurants.length; i++) {
-                if (LVRestaurants[i].properties.Inspection_Result != undefined) {
-                    scoreCategoryAll.push(LVRestaurants[i].properties.Inspection_Result);            
-                } //end if
-            }; //end for
+//             ///for loop to get risk categories
+//             for (i = 0; i < LVRestaurants.length; i++) {
+//                 if (LVRestaurants[i].properties.Inspection_Result != undefined) {
+//                     scoreCategoryAll.push(LVRestaurants[i].properties.Inspection_Result);            
+//                 } //end if
+//             }; //end for
 
-            //consolidate to only unique values
-            var riskCategoryUnique =  [...new Set(scoreCategoryAll)]
-            console.log(riskCategoryUnique)
+//             //consolidate to only unique values
+//             var riskCategoryUnique =  [...new Set(scoreCategoryAll)]
+//             console.log(riskCategoryUnique)
 
-            //populate restaurant-risk dropdown with values
-            var select = document.getElementById("risk-select");
-            for(i=0; i < riskCategoryUnique.length; i++) {
-                select.options[select.options.length] = new Option(riskCategoryUnique[i]);
-            } 
+//             //populate restaurant-risk dropdown with values
+//             var select = document.getElementById("risk-select");
+//             for(i=0; i < riskCategoryUnique.length; i++) {
+//                 select.options[select.options.length] = new Option(riskCategoryUnique[i]);
+//             } 
 
-            for (j=0; j < riskCategoryUnique.length; j++) {
-                console.log(riskCategoryUnique[j])
+//             for (j=0; j < riskCategoryUnique.length; j++) {
+//                 console.log(riskCategoryUnique[j])
 
                 
-            }
+//             }
 
 
         
-    }); //d3.json(restaurantInspectionsURL)
+//     }); //d3.json(restaurantInspectionsURL)
 
-} //end of createTable function
+// } //end of createTable function
 
 
