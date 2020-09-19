@@ -97,7 +97,8 @@ function createTable(value) {
             return `<td>${d.business_name}</td><td>${d.risk_level}</td><td>${d.address}</td><td>${d.inspection_date}</td><td>${d.inspection_type}</td><td>${d.violation_description}</td>`;
 
         })
-            
+         
+        
 
         }); //end createTable
 
