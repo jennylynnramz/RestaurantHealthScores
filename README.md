@@ -2,6 +2,9 @@
 
 ## Demo - [Click here](http://jennylynnramz.com/RestaurantHealthScores/)
 
+![Preview](https://github.com/jennylynnramz/jennylynnramz.github.io/blob/master/Photos/restaurant-risk-risk-level.png?raw=true)
+![Preview](https://github.com/jennylynnramz/jennylynnramz.github.io/blob/master/Photos/restaurant-risk-search.png)
+
 ## Desciption
 * This project explores [live restaurant scores published by SF Gov](https://data.sfgov.org/Health-and-Social-Services/Restaurant-Scores-LIVES-Standard/pyih-qa8i).
 * This project enables users to filter this data based restaurant names and risk levels.
