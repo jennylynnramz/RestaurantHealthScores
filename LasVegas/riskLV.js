@@ -1,9 +1,10 @@
 // checking to make sure there is a connection
 console.log("Risk in Las Vegas has loaded!");
 
-// 
+//the link where the data comes from
 var restaurantInspectionsURL = "https://opendata.arcgis.com/datasets/94fe16f2a6a241f6841e1ed5c2f1f519_0.geojson";
 
+//the place where we will store all the sorted and organized data
 var AllLVRestaurant = []
 
 ///data call to populate dropdown lists with data
@@ -63,8 +64,6 @@ function populateTable(restaurantList) {
     d3.select("tbody")
     .selectAll("tr").remove()
 
-    console.log("did the remove thing")
-
     d3.select("tbody")
     .selectAll("tr")
     .data(restaurantList)
@@ -78,25 +77,32 @@ function populateTable(restaurantList) {
 }; //end create table function
 
 
-
+//find values that match the chosen category
 function categoryTable(value) {
     console.log(value)
-
     var categoryData = []
-
-    
     for (i=0; i < AllLVRestaurant.length; i++){
         if (AllLVRestaurant[i].Category == value){
             categoryData.push(AllLVRestaurant[i])
         }
     }
-    // console.log(categoryData)
-
+    //send data to the populateTable function to clear and reset the page data
     populateTable(categoryData)
 
+}; //end of createTable function
 
-    
+function ratingTable(value) {
+    console.log(value)
+    var InspectionResultData = []
+ 
+    for (i=0; i < AllLVRestaurant.length; i++){
+        if (AllLVRestaurant[i].Inspection_Result == value){
+            InspectionResultData.push(AllLVRestaurant[i])
+        }
+    }
+    //send data to the populateTable function to clear and reset the page data
+    populateTable(InspectionResultData)
+};
 
-} //end of createTable function
 
 
