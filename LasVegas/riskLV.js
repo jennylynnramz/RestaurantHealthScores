@@ -13,6 +13,7 @@ d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
     
     var scoreAll = []
     var restaurantCategoryAll = []
+    var restaurantNameAll = []
 
         ///for loop to get risk categories
         for (i = 0; i < LVRestaurants.length; i++) { //for 1
@@ -22,14 +23,28 @@ d3.json(restaurantInspectionsURL).then(function(restaurantInspectionsData) {
             if (LVRestaurants[i].properties.Category_Name != undefined) { //if 2
                 restaurantCategoryAll.push(LVRestaurants[i].properties.Category_Name);
             } //end if 2
+            if (LVRestaurants[i].properties.Restaurant_Name != undefined) { //if 2
+                if (LVRestaurants[i].properties.Restaurant_Name.includes("Eleven") == false && LVRestaurants[i].properties.Restaurant_Name.includes("7") == false)
+                {restaurantNameAll.push(LVRestaurants[i].properties.Restaurant_Name)}   
+                else {continue}
+            } //end if 2
 
         }; //end for 1
 
         //consolidate to only unique values
+        var restaurantNameUnique = [...new Set(restaurantNameAll)]
+        restaurantNameUnique.sort()
         var riskCategoryUnique =  [...new Set(scoreAll)]
+        riskCategoryUnique.sort()
         var restaurantCategoryUnique = [...new Set(restaurantCategoryAll)]
+        restaurantCategoryUnique.sort()
 
         //populate restaurant-risk dropdown with values
+        var select = document.getElementById("name-select");
+        for(i=0; i < restaurantNameUnique.length; i++) {
+            select.options[select.options.length] = new Option(restaurantNameUnique[i]);
+        }  
+        
         var select = document.getElementById("inspection-result-select");
         for(i=0; i < riskCategoryUnique.length; i++) {
             select.options[select.options.length] = new Option(riskCategoryUnique[i]);
@@ -77,7 +92,23 @@ function populateTable(restaurantList) {
 }; //end create table function
 
 
+
+
 //find values that match the chosen category
+
+function nameTable(value) {
+    console.log(value)
+    var InspectionResultData = []
+ 
+    for (i=0; i < AllLVRestaurant.length; i++){
+        if (AllLVRestaurant[i].Name == value){
+            InspectionResultData.push(AllLVRestaurant[i])
+        }
+    }
+    //send data to the populateTable function to clear and reset the page data
+    populateTable(InspectionResultData)
+};
+
 function categoryTable(value) {
     console.log(value)
     var categoryData = []
