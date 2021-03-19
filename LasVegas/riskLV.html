@@ -13,9 +13,8 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-
-
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="https://jennylynnramz.com">Jennylynnramz</a>
@@ -27,19 +26,12 @@
             <li class="nav-item active">
               <a class="nav-link" href="index.html">Recently Inspected Las Vegas Restaurants</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="search.html">Search by LV Restaurant Name</a>
-            </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="https://jennylynnramz.com/RestaurantHealthScores/">Choose Another City</a>
             </li>
-
           </ul>
-          <!-- <span class="navbar-text">
-            Navbar text with an inline element
-          </span> -->
         </div>
-      </nav>
+    </nav>
       <!-- end navbar -->
 
 <div class="container">
@@ -57,13 +49,21 @@
       </div>
   </div>
   <div class="row">
-    <div class="col-1">
+    <div class="col-2">
+      Restaurant Name:
+    </div>
+    <div class="col-3">
+      <select id="name-select" onchange="nameTable(this.value)"></select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
       Category:
     </div>
     <div class="col-3">
       <select id="category-select" onchange="categoryTable(this.value)"></select>
     </div>
-    <div class="col-1">
+    <div class="col-2">
       Inspection Result:
     </div>
     <div class="col-3">
